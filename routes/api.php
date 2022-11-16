@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -33,3 +34,5 @@ Route::post('/search/barang', [BarangController::class, 'searching'])->middlewar
 Route::post('/transaksi/addcart', [TransaksiController::class, 'addCart'])->middleware('auth:sanctum');
 Route::get('/transaksi/carts', [TransaksiController::class, 'carts'])->middleware('auth:sanctum');
 Route::get('/transaksi/simpan', [TransaksiController::class, 'simpanTransaksi'])->middleware('auth:sanctum');
+
+Route::post('/laporan/penjualan', [LaporanPenjualanController::class, 'laporanPenjualan'])->middleware('auth:sanctum');

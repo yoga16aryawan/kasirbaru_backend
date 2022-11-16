@@ -19,4 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('search', [TransaksiController::class, 'simpanTransaksi']);
+Route::get('search', [TransaksiController::class, 'search']);

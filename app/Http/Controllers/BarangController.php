@@ -27,7 +27,7 @@ class BarangController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Unauthorized'
-                ], 200);
+                ], 401);
             }
             $barang = Barang::all();
             $data = collect($barang);
@@ -68,7 +68,7 @@ class BarangController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Unauthorized'
-                ], 200);
+                ], 401);
             }
 
             $validateBarang = Validator::make(
@@ -130,7 +130,7 @@ class BarangController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Unauthorized'
-                ], 200);
+                ], 401);
             }
             $barang = Barang::find($id);
             if (empty($barang)) {
@@ -177,7 +177,7 @@ class BarangController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Unauthorized'
-                ], 200);
+                ], 401);
             }
             $validateBarang = Validator::make(
                 $request->all(),
@@ -204,7 +204,7 @@ class BarangController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'data tidak ditemukan',
-                ], 404);
+                ], 200);
             }
 
             $input = $request->all();
@@ -257,7 +257,7 @@ class BarangController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'data tidak ditemukan'
-                ], 404);
+                ], 200);
             }
             return response()->json([
                 'status' => true,
@@ -271,13 +271,5 @@ class BarangController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-    }
-
-    public function tes()
-    {
-        // if (!Gate::allows('isAdmin', Auth()->user())) {
-        //     echo "bukan admin";
-        // }
-        print_r(Auth::user());
     }
 }

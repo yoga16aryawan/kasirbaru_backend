@@ -30,9 +30,12 @@ Route::post('/auth/login', [AuthController::class, 'loginUser']);
 
 Route::resource('/barang', BarangController::class)->middleware('auth:sanctum');
 Route::post('/search/barang', [BarangController::class, 'searching'])->middleware('auth:sanctum');
+Route::post('/cek/barcode', [BarangController::class, 'singleSearching'])->middleware('auth:sanctum');
+// Route::get('/list_barang', [BarangController::class, 'list_barang']);
 
-Route::post('/transaksi/addcart', [TransaksiController::class, 'addCart'])->middleware('auth:sanctum');
 Route::get('/transaksi/carts', [TransaksiController::class, 'carts'])->middleware('auth:sanctum');
+Route::post('/transaksi/add/cart', [TransaksiController::class, 'addCart'])->middleware('auth:sanctum');
+Route::post('/transaksi/delete/cart', [TransaksiController::class, 'deleteCart'])->middleware('auth:sanctum');
 Route::get('/transaksi/simpan', [TransaksiController::class, 'simpanTransaksi'])->middleware('auth:sanctum');
 
 Route::post('/laporan/penjualan', [LaporanPenjualanController::class, 'laporanPenjualan'])->middleware('auth:sanctum');

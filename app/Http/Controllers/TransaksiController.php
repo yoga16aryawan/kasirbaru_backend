@@ -138,7 +138,14 @@ class TransaksiController extends Controller
         }
     }
 
-    public function search()
+    public function deleteCart(Request $request)
     {
+        try {
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }

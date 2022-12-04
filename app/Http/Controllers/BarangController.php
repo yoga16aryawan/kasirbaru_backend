@@ -44,6 +44,24 @@ class BarangController extends Controller
             ], 500);
         }
     }
+    public function list_barang()
+    {
+        try {
+            $barang = Barang::all();
+            $data = collect($barang);
+            $total = $data->count();
+            return response()->json([
+                'status' => true,
+                'total_data' => $total,
+                'data' => $barang
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -265,6 +283,23 @@ class BarangController extends Controller
                 'total_data' => $barang->count(),
                 'data' => $barang
             ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function singleSearching(Request $request)
+    {
+        try {
+            $barang = Barang::where('barcode', $request->key)->limit(1)->get();
+            return response()->json([
+                'status' => true,
+                'namabarang' => $barang[0]['namabarang'],
+                'harga_jual' => $barang[0]['harga_jual']
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,

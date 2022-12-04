@@ -111,7 +111,7 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            $user = User::find($id);
+            $user = User::where('id', Auth::user()->id)->get();
             if (empty($user)) {
                 return response()->json([
                     'status' => false,

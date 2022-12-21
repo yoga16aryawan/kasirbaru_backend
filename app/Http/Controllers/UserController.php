@@ -121,6 +121,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'data ditemukan',
+                'level' => $user[0]['level'],
                 'data' => $user
             ], 200);
         } catch (\Throwable $th) {

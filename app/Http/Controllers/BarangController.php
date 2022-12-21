@@ -29,7 +29,7 @@ class BarangController extends Controller
                     'message' => 'Unauthorized'
                 ], 401);
             }
-            $barang = Barang::all();
+            $barang = Barang::latest()->get();
             $data = collect($barang);
             $total = $data->count();
             return response()->json([

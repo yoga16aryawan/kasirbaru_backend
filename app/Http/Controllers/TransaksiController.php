@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class TransaksiController extends Controller
@@ -141,6 +142,40 @@ class TransaksiController extends Controller
     public function deleteCart(Request $request)
     {
         try {
+            $validateRequest = Validator::make(
+                $request->all(),
+                [
+                    'key' => 'required'
+                ]
+            );
+            if ($validateRequest->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Error'
+                ], 200);
+            }
+            $carts = Cart::where('id', $request->key)
+                ->where('user_id', Auth::user()->id)
+                ->get();
+            if ($carts->count() < 1) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'data tidak ditemukan'
+                ]);
+            }
+            $deleted = Cart::where('id', $request->key)
+                ->where('user_id', Auth::user()->id)
+                ->delete();
+            if (!$deleted) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Warning, Gagal Hapus'
+                ]);
+            }
+            return response()->json([
+                'status' => true,
+                'message' => 'Item Berhasil Dihapus'
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
